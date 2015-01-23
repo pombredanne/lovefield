@@ -106,6 +106,7 @@ app.controller(
         $scope.colorSelection = unboundValue;
         $scope.fromYearSelection = unboundValue;
         $scope.toYearSelection = unboundValue;
+        $scope.eventSelection = unboundValue;
 
         // Removing last results, if any.
         resultsService.set([]);
@@ -125,6 +126,7 @@ app.controller(
                this.countries = domains.countries;
                this.genders = domains.genders;
                this.colors = domains.colors;
+               this.events = domains.events;
              }).bind(this));
       };
 
@@ -132,6 +134,7 @@ app.controller(
       this.toYears = [];
       this.cities = [];
       this.disciplines = [];
+      this.events = [];
       this.countries = [];
       this.genders = [];
       this.colors = [];
@@ -170,6 +173,10 @@ app.controller(
 
         if ($scope.disciplineSelection != unboundValue) {
           predicates.push(medal.discipline.eq($scope.disciplineSelection));
+        }
+
+        if ($scope.eventSelection != unboundValue) {
+          predicates.push(medal.event.eq($scope.eventSelection));
         }
 
         if ($scope.fromYearSelection != unboundValue &&
