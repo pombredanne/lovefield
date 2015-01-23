@@ -174,8 +174,11 @@ app.controller(
 
         if ($scope.fromYearSelection != unboundValue &&
             $scope.toYearSelection != unboundValue) {
-          predicates.push(medal.year.between(
-              $scope.fromYearSelection, $scope.toYearSelection));
+          var minYear = Math.min(
+              $scope.fromYearSelection, $scope.toYearSelection);
+          var maxYear = Math.max(
+              $scope.fromYearSelection, $scope.toYearSelection);
+          predicates.push(medal.year.between(minYear, maxYear));
         } else if ($scope.fromYearSelection != unboundValue) {
           predicates.push(medal.year.gte($scope.fromYearSelection));
         } else if ($scope.toYearSelection != unboundValue) {
