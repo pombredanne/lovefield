@@ -18,6 +18,11 @@ label,td {
   color: white;
 }
 
-.table-hover>tbody>tr:hover {
+.table-hover>tbody>tr:hover,
+.table-striped>tbody>tr:nth-of-type(odd):hover {
   background-color: black
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: rgba(19,80,90, 0.7);
 }
