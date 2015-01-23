@@ -10,4 +10,14 @@
 
 body {
   display: flex;
+  background: url('chalk.png');
+  font-size: 18px;
+}
+
+label,td {
+  color: white;
+}
+
+.table-hover>tbody>tr:hover {
+  background-color: black
 }
