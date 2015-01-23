@@ -26,3 +26,7 @@ label,td {
 .table-striped>tbody>tr:nth-of-type(odd) {
   background-color: rgba(19,80,90, 0.7);
 }
+
+textarea {
+  margin-top: 20px;
+}
