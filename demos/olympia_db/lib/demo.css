@@ -1,0 +1,13 @@
+#query-builder {
+  padding: 20px;
+  flex: 1;
+}
+
+#results {
+  padding: 20px;
+  flex: 5;
+}
+
+body {
+  display: flex;
+}
