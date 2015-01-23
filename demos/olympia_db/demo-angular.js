@@ -92,8 +92,9 @@ app.controller(
 
 app.controller(
     'QueryBuilderController',
-    ['$scope', 'DbService', 'ResultsService', function(
-        $scope, dbService, resultsService) {
+    ['$scope', '$http', 'DbService', 'ResultsService', function(
+        $scope, $http, dbService, resultsService) {
+
       this.clear = function() {
         console.log('clearing...');
         $scope.citySelection = 'unbound';
@@ -105,18 +106,28 @@ app.controller(
         $scope.toYearSelection = 'unbound';
       };
 
-      // TODO(dpapad): Get a list of all years.
-      this.fromYears = ['unbound', 2004, 2008, 2012];
-      this.toYears = ['unbound', 2004, 2008, 2012];
-      // TODO(dpapad): Get a list of all cities.
-      this.cities = ['unbound', 'Athens', 'Rome'];
-      // TODO(dpapad): Get a list of all disciplines.
-      this.disciplines = ['unbound', 'Swimming', 'Athletics'];
-      // TODO(dpapad): Get a list of all countries.
-      this.countries = ['unbound', 'USA', 'GRE'];
-      this.genders = ['unbound', 'Men', 'Women'];
+      this.populateUi_ = function() {
+         return $http.get('data/column_domains.json').then(
+             (function(response) {
+               var domains = response.data;
+               this.fromYears = domains.years;
+               this.toYears = domains.years;
+               this.cities = domains.cities;
+               this.disciplines = domains.disciplines;
+               this.countries = domains.countries;
+               this.genders = domains.genders;
+             }).bind(this));
+      };
+
+      this.fromYears = [];
+      this.toYears = [];
+      this.cities = [];
+      this.disciplines = [];
+      this.countries = [];
+      this.genders = [];
       this.colors = ['unbound', 'Gold', 'Silver', 'Bronze'];
-      this.clear();
+      //this.clear();
+      this.populateUi_();
 
       this.search = function() {
         this.getQuery_().then(function(query) {
@@ -132,33 +143,34 @@ app.controller(
         var medal = olympia.db.getSchema().getMedal();
         var predicates = [];
 
-        if ($scope.countrySelection != 'unbound') {
+        var unboundValue = undefined;
+        if ($scope.countrySelection != unboundValue) {
           predicates.push(medal.country.eq($scope.countrySelection));
         }
 
-        if ($scope.colorSelection != 'unbound') {
+        if ($scope.colorSelection != unboundValue) {
           predicates.push(medal.color.eq($scope.colorSelection));
         }
 
-        if ($scope.citySelection != 'unbound') {
+        if ($scope.citySelection != unboundValue) {
           predicates.push(medal.city.eq($scope.citySelection));
         }
 
-        if ($scope.genderSelection != 'unbound') {
+        if ($scope.genderSelection != unboundValue) {
           predicates.push(medal.gender.eq($scope.genderSelection));
         }
 
-        if ($scope.disciplineSelection != 'unbound') {
+        if ($scope.disciplineSelection != unboundValue) {
           predicates.push(medal.discipline.eq($scope.disciplineSelection));
         }
 
-        if ($scope.fromYearSelection != 'unbound' &&
-            $scope.toYearSelection != 'unbound') {
+        if ($scope.fromYearSelection != unboundValue &&
+            $scope.toYearSelection != unboundValue) {
           predicates.push(medal.year.between(
               $scope.fromYearSelection, $scope.toYearSelection));
-        } else if ($scope.fromYearSelection != 'unbound') {
+        } else if ($scope.fromYearSelection != unboundValue) {
           predicates.push(medal.year.gte($scope.fromYearSelection));
-        } else if ($scope.toYearSelection != 'unbound') {
+        } else if ($scope.toYearSelection != unboundValue) {
           predicates.push(medal.year.lte($scope.toYearSelection));
         }
 
