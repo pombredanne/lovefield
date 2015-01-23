@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="lib/angular.js"></script>
+  <!-- Lovefield -->
+  <script src="lib/lovefield.js"></script>
+  <script src="lib/olympia_db_gen.js"></script>
+</head>
+
+<body ng-app="myApp">
+  <div ng-controller="QueryBuilderController as queryBuilder">
+
+    <div>
+      <span>From year:</span>
+      <select ng-model="fromYearSelection">
+        <option ng-repeat="year in queryBuilder.fromYears">{{year}}</option>
+      </select>
+    </div>
+
+    <div>
+      <span>To year:</span>
+      <select ng-model="toYearSelection">
+        <option ng-repeat="year in queryBuilder.toYears">{{year}}</option>
+      </select>
+    </div>
+
+    <div>
+      <span>Hosting city:</span>
+      <select ng-model="citySelection">
+        <option ng-repeat="city in queryBuilder.cities">{{city}}</option>
+      </select>
+    </div>
+
+    <div>
+      <span>Discipline:</span>
+      <select ng-model="disciplineSelection">
+        <option ng-repeat="discipline in queryBuilder.disciplines">{{discipline}}</option>
+      </select>
+    </div>
+
+    <div>
+      <span>Country:</span>
+      <select ng-model="countrySelection">
+        <option ng-repeat="country in queryBuilder.countries">{{country}}</option>
+      </select>
+    </div>
+
+    <div>
+      <span>Color:</span>
+      <select ng-model="colorSelection">
+        <option ng-repeat="color in queryBuilder.colors">{{color}}</option>
+      </select>
+    </div>
+
+    <div>
+      <span>Gender:</span>
+      <select ng-model="genderSelection">
+        <option ng-repeat="gender in queryBuilder.genders">{{gender}}</option>
+      </select>
+    </div>
+
+    <form novalidate class="css-form">
+      <input type="button" ng-click="queryBuilder.clear()" value="Clear" />
+      <input type="submit" ng-click="queryBuilder.search()" value="Search" />
+    </form>
+
+    <table ng-controller="ResultsController as resultsController">
+      <tr ng-repeat="x in resultsController.getResults()">
+        <td ng-repeat="(key, data) in x">{{data}}</td>
+      </tr>
+    </table>
+
+  </div>
+
+  <script type="text/javascript" src="demo-angular.js"></script>
+</body>
+
+</html>
