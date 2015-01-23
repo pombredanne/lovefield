@@ -95,15 +95,20 @@ app.controller(
     ['$scope', '$http', 'DbService', 'ResultsService', function(
         $scope, $http, dbService, resultsService) {
 
+      var unboundValue = undefined;
+
       this.clear = function() {
-        console.log('clearing...');
-        $scope.citySelection = 'unbound';
-        $scope.disciplineSelection = 'unbound';
-        $scope.countrySelection = 'unbound';
-        $scope.genderSelection = 'unbound';
-        $scope.colorSelection = 'unbound';
-        $scope.fromYearSelection = 'unbound';
-        $scope.toYearSelection = 'unbound';
+        // Removing all predicates.
+        $scope.citySelection = unboundValue;
+        $scope.disciplineSelection = unboundValue;
+        $scope.countrySelection = unboundValue;
+        $scope.genderSelection = unboundValue;
+        $scope.colorSelection = unboundValue;
+        $scope.fromYearSelection = unboundValue;
+        $scope.toYearSelection = unboundValue;
+
+        // Removing last results, if any.
+        resultsService.set([]);
       };
 
       this.populateUi_ = function() {
@@ -116,6 +121,7 @@ app.controller(
                this.disciplines = domains.disciplines;
                this.countries = domains.countries;
                this.genders = domains.genders;
+               this.colors = domains.colors;
              }).bind(this));
       };
 
@@ -125,8 +131,7 @@ app.controller(
       this.disciplines = [];
       this.countries = [];
       this.genders = [];
-      this.colors = ['unbound', 'Gold', 'Silver', 'Bronze'];
-      //this.clear();
+      this.colors = [];
       this.populateUi_();
 
       this.search = function() {
@@ -143,7 +148,6 @@ app.controller(
         var medal = olympia.db.getSchema().getMedal();
         var predicates = [];
 
-        var unboundValue = undefined;
         if ($scope.countrySelection != unboundValue) {
           predicates.push(medal.country.eq($scope.countrySelection));
         }
