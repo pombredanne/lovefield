@@ -135,11 +135,10 @@ app.controller(
       this.populateUi_();
 
       this.search = function() {
-        this.getQuery_().then(function(query) {
+        this.buildQuery_().then(function(query) {
           console.log('executing:', query.toSql());
           return query.exec();
         }).then(function(results) {
-          console.log('res', results);
           resultsService.set(results);
         });
       };
@@ -184,7 +183,7 @@ app.controller(
       };
 
 
-      this.getQuery_ = function() {
+      this.buildQuery_ = function() {
         return dbService.get().then((function(db) {
           var predicates = this.getPredicates_();
           var medal = olympia.db.getSchema().getMedal();
