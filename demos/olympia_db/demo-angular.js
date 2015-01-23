@@ -109,6 +109,9 @@ app.controller(
 
         // Removing last results, if any.
         resultsService.set([]);
+
+        // Clearing SQL query.
+        $scope.sqlQuery = '';
       };
 
       this.populateUi_ = function() {
@@ -132,10 +135,12 @@ app.controller(
       this.countries = [];
       this.genders = [];
       this.colors = [];
+      this.sqlQuery = '';
       this.populateUi_();
 
       this.search = function() {
         this.buildQuery_().then(function(query) {
+          $scope.sqlQuery = query.toSql();
           console.log('executing:', query.toSql());
           return query.exec();
         }).then(function(results) {
