@@ -12,52 +12,52 @@
 <body ng-app="myApp">
   <div ng-controller="QueryBuilderController as queryBuilder">
 
-    <form novalidate class="css-form">
+    <form novalidate class="">
     <div class="form-group">
       <label for="fromYearSelect">From year</label>
-      <select id="fromYearSelect" ng-model="fromYearSelection">
+      <select id="fromYearSelect" class="form-control" ng-model="fromYearSelection">
         <option ng-repeat="year in queryBuilder.fromYears">{{year}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label for="toYearSelect">To year:</label>
-      <select id="toYearSelect" ng-model="toYearSelection">
+      <select id="toYearSelect" class="form-control" ng-model="toYearSelection">
         <option ng-repeat="year in queryBuilder.toYears">{{year}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label for="citySelect">Hosting city:</label>
-      <select id="citySelect" ng-model="citySelection">
+      <select id="citySelect" class="form-control" ng-model="citySelection">
         <option ng-repeat="city in queryBuilder.cities">{{city}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label for="disciplineSelect">Discipline:</label>
-      <select id="disciplineSelect" ng-model="disciplineSelection">
+      <select id="disciplineSelect" class="form-control" ng-model="disciplineSelection">
         <option ng-repeat="discipline in queryBuilder.disciplines">{{discipline}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label for="countrySelect">Country:</label>
-      <select id="countrySelect" ng-model="countrySelection">
+      <select id="countrySelect" class="form-control" ng-model="countrySelection">
         <option ng-repeat="country in queryBuilder.countries">{{country}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label for="colorSelect">Color:</label>
-      <select id="colorSelect" ng-model="colorSelection">
+      <select id="colorSelect" class="form-control" ng-model="colorSelection">
         <option ng-repeat="color in queryBuilder.colors">{{color}}</option>
       </select>
     </div>
 
     <div class="form-group">
       <label>Gender:</label>
-      <select ng-model="genderSelection">
+      <select ng-model="genderSelection" class="form-control" >
         <option ng-repeat="gender in queryBuilder.genders">{{gender}}</option>
       </select>
     </div>
